@@ -43,7 +43,16 @@ di "Variables with significant differences by sex (p < 0.05): `results'"
 
 
 
-
+use "E:\PSE\timeuse.dta", clear
+svyset [pweight=WGHT_PER], vce(linearized)
+keep if SLM_01 >= 1 & SLM_01 <= 5
+gen MATR = (MARSTAT == 1 & PHSDFLG == 1)
+summarize SLM_01 [aweight=WGHT_PER]
+scalar weighted_avg = r(mean)
+collapse (mean) SLM_01, by(SEX MATR)
+gen ratio_SLM_01 = SLM_01 / weighted_avg
+format SLM_01 ratio_SLM_01 %9.2f
+list
 
 use "E:\PSE\timeuse.dta", clear
 svyset [pweight=WGHT_PER], vce(linearized)
