@@ -77,15 +77,39 @@ format SRH_115 ratio_SRH_115 %9.2f
 list
 
 #interesting variables: LIVARR08 year and living with parents 
-#questions: better matr and couplebefore or partner living in the household. Number of members or children at home.
+#questions: better matr and couplebefore or partner living in the household. Number of members or children at home. CHLDDUR or UH_01/ UH_03/ ADLTDUR or UH_05+UH_06. Should I inlcude disability status? If so, only mental or everyone
 #married+living common law
 gen MATR = (MARSTAT == 1| MARSTAT == 2)
 #widowed+separated+divorced
 gen couplebefore = (MARSTAT == 3 | MARSTAT == 4 | MARSTAT == 5)
 gen homosexualcouple = (PRTYPEC ==3)
 gen youngestchildage = AGECXRYG
-replace new_variable = . if AGECXRYG == 96
+replace youngestchildage = . if AGECXRYG == 96
 gen agedifferencepartner = AGEPRGRD
-replace new_variable = . if AGEPRGRD == 96
+replace agedifferencepartner = . if AGEPRGRD == 96
+#maybe set a limit age in the command below or use LIVARR08
+gen livingwithoneparent = (PARNUM == 2)
+gen feelrushed = GTU_110
+replace feelrushed = . if GTU_110 == 97 | GTU_110 == 98
+gen feelrushed = GTU_130
+replace feelrushed = . if GTU_130 == 97 | GTU_130 == 98 | GTU_130 == 99
+gen new_sleep1s = SLEEP1S
+replace new_sleep1s = cond(inlist(substr(new_sleep1s, 1, 2), "00", "01", "02", "03", "04"), new_sleep1s, cond(SLEEP1D > 899, string(real(new_sleep1s) + 1200, "%05.0f"), new_sleep1s))
+replace new_sleep1s = cond(inlist(substr(new_sleep1s, 1, 2), "00", "01", "02", "03", "04"), string(real(new_sleep1s) + 2400, "%04.0f"), new_sleep1s)
+#TCS_110 TCS_120 TCS_130 TCS_140 TCS_150 TCS_160 TCS_170 TCS_180 TCS_190 TCS_200
+gen timecrunch = TIMECR
+replace timecrunch = . if TIMECR == 99
+gen timecrunch = TIMECR
+replace timecrunch = . if TIMECR == 99
+gen swell_being = SLM_01
+replace swell_being = . if SLM_01 == 97| SLM_01 == 98 | SLM_01 == 99
+gen shealth = SRH_110
+replace shealth = . if SRH_110 == 7| SRH_110 == 8 | SRH_110 == 9
+gen smentalhealth = SRH_115
+replace smentalhealth = . if SRH_115 == 7| SRH_115 == 8 | SRH_115 == 9
+gen mentaldisabilitystatus = DMEN_FL
+replace mentaldisabilitystatus = . if DMEN_FL == 7| DMEN_FL == 8 | DMEN_FL == 9
 
-regress  AGEGR10 SEX HSDSIZEC PHSDFLG AGEPRGRD MATR couplebefore homosexualcouple CHINHSDC youngestchildage
+
+#include: PRV
+regress smentalhealth AGEGR10 SEX HSDSIZEC PHSDFLG AGEPRGRD MATR couplebefore homosexualcouple CHINHSDC youngestchildage agedifferencepartner feelrushed SLEEPDUR PERSDUR PDWKDUR LKWKDUR SCHLDUR HSWKDUR CHLDDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR EVENTDUR SPRTSDUR ACTLDUR SOCPRDUR SOCTCDUR TVDUR READDUR OTHLDUR TRANSDUR BREAKDUR MEALSDUR OTHERDUR new_sleep1s TIMECR shealth mentaldisabilitystatus    
