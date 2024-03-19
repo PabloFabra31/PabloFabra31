@@ -76,9 +76,10 @@ gen ratio_SRH_115 = SRH_115 / weighted_avg
 format SRH_115 ratio_SRH_115 %9.2f
 list
 
-#interesting variables: LIVARR08 year and living with parents 
-#questions: better matr and couplebefore or partner living in the household. Number of members or children at home. CHLDDUR or UH_01/ UH_03/ ADLTDUR or UH_05+UH_06. Should I inlcude disability status? If so, only mental or everyone
+#interesting variables: LIVARR08 year and living with parents  WHW_160F Works less than 30 hours - Could only find part-time work WHW_230 Usual work schedule at main job WFS_10 work flexible schedule. A ytravés de CTW_140H y de teleworking podemos saber quién estudia en casa
+#questions: better matr and couplebefore or partner living in the household. Number of members or children at home. CHLDDUR or UH_01/ UH_03/ ADLTDUR or UH_05+UH_06. Should I inlcude disability status? If so, only mental or everyone. nr of hours worked per week WHW_120C or duration of work? WLB_10 or SRC_10. incluir carcommutting los pasajeros también?
 #married+living common law
+#ma=main activity. s=subjective (or self-rated)
 gen MATR = (MARSTAT == 1| MARSTAT == 2)
 #widowed+separated+divorced
 gen couplebefore = (MARSTAT == 3 | MARSTAT == 4 | MARSTAT == 5)
@@ -109,7 +110,30 @@ gen smentalhealth = SRH_115
 replace smentalhealth = . if SRH_115 == 7| SRH_115 == 8 | SRH_115 == 9
 gen mentaldisabilitystatus = DMEN_FL
 replace mentaldisabilitystatus = . if DMEN_FL == 7| DMEN_FL == 8 | DMEN_FL == 9
-
-
+gen sstress = SRS_10
+replace sstress = . if SRS_10 == 7| SRS_10 == 8 | SRS_10 == 9
+gen mawork = (ACT7DAYS == 1) 
+gen nrpaidvacation = WET_171
+replace nrpaidvacation = . if WET_171 == 996| WET_171 == 997| WET_171 == 998 | WET_171 == 999
+gen nremployees = RBI_10
+replace nremployees = . if RBI_10 == 996| RBI_10 == 997| RBI_10 == 998 | RBI_10 == 999
+gen unionmember = WLY_160
+replace unionmember = . if WLY_160 == 6| WLY_160 == 7| WLY_160 == 8 | WLY_160 == 9
+gen distancework = WLY_170
+replace distancework = . if WLY_170 == 995| WLY_170 == 996 | WLY_170 == 997| WLY_170 == 998 | WLY_170 == 999
+gen teleworking = (WLY_170 == 995)
+gen workless30childcare = WHW_160B
+replace workless30childcare = . if WHW_160B == 6| WHW_160B == 7| WHW_160B == 8 | WHW_160B == 9
+gen workless30childcare = WHW_160B
+replace workless30childcare = . if WHW_160B == 6| WHW_160B == 7| WHW_160B == 8 | WHW_160B == 9
+gen workless30wanted = WHW_160G
+replace workless30wanted = . if WHW_160G == 6| WHW_160G == 7| WHW_160G == 8 | WHW_160G == 9
+gen balancejobhome = SRC_10
+replace balancejobhome = . if SRC_10 == 6| SRC_10 == 7| SRC_10 == 8 | SRC_10 == 9
+gen notimeotheract = SRC_20C
+replace notimeotheract = . if SRC_20C == 6| SRC_20C == 7| SRC_20C == 8 | SRC_20C == 9
+gen paidhelp = (HRH_10A == 2)
+gen carcommutting = (CTW_140A == 1)
 #include: PRV
-regress smentalhealth AGEGR10 SEX HSDSIZEC PHSDFLG AGEPRGRD MATR couplebefore homosexualcouple CHINHSDC youngestchildage agedifferencepartner feelrushed SLEEPDUR PERSDUR PDWKDUR LKWKDUR SCHLDUR HSWKDUR CHLDDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR EVENTDUR SPRTSDUR ACTLDUR SOCPRDUR SOCTCDUR TVDUR READDUR OTHLDUR TRANSDUR BREAKDUR MEALSDUR OTHERDUR new_sleep1s TIMECR shealth mentaldisabilitystatus    
+regress smentalhealth AGEGR10 SEX HSDSIZEC PHSDFLG AGEPRGRD MATR couplebefore homosexualcouple CHINHSDC youngestchildage agedifferencepartner feelrushed SLEEPDUR PERSDUR PDWKDUR LKWKDUR SCHLDUR HSWKDUR CHLDDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR EVENTDUR SPRTSDUR ACTLDUR SOCPRDUR SOCTCDUR TVDUR READDUR OTHLDUR TRANSDUR BREAKDUR MEALSDUR OTHERDUR new_sleep1s TIMECR shealth mentaldisabilitystatus unionmember sstress
+mawork nrpaidvacation nremployees unionmember distancework teleworking
