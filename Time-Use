@@ -101,6 +101,9 @@ replace extratime = . if GTU_130 == 97 | GTU_130 == 98 | GTU_130 == 99
 gen new_sleep1s = SLEEP1S
 replace new_sleep1s = cond(inlist(substr(new_sleep1s, 1, 2), "00", "01", "02", "03", "04"), new_sleep1s, cond(SLEEP1D > 899, string(real(new_sleep1s) + 1200, "%05.0f"), new_sleep1s))
 replace new_sleep1s = cond(inlist(substr(new_sleep1s, 1, 2), "00", "01", "02", "03", "04"), string(real(new_sleep1s) + 2400, "%04.0f"), new_sleep1s)
+destring new_sleep1s, replace
+replace new_sleep1s = . if new_sleep1s > 9000
+
 #TCS_110 TCS_120 TCS_130 TCS_140 TCS_150 TCS_160 TCS_170 TCS_180 TCS_190 TCS_200
 destring TIMECR, replace
 gen timecr = TIMECR
@@ -152,6 +155,20 @@ gen religimportance = RLR_110
 replace religimportance = . if RLR_110 == 6| RLR_110 == 7| RLR_110 == 8 | RLR_110 == 9
 gen norenglishfrench = (LAN_01 ==4)
 gen multmotongue = (LANMTMUL==2)
+gen planslowdown = TCS_110
+replace planslowdown = . if TCS_110 == 6| TCS_110 == 7| TCS_110 == 8 | TCS_110 == 9
+gen workaholic = TCS_120
+replace workaholic = . if TCS_120 == 6| TCS_120 == 7| TCS_120 == 8 | TCS_120 == 9
+gen cutsleep = TCS_130
+replace cutsleep = . if TCS_130 == 6| TCS_130 == 7| TCS_130 == 8 | TCS_130 == 9
+gen notaccomplishingplans = TCS_140
+replace notaccomplishingplans = . if TCS_140 == 6| TCS_140 == 7| TCS_140 == 8 | TCS_140 == 9
+gen nottimefamily = TCS_150
+replace nottimefamily = . if TCS_150 == 6| TCS_150 == 7| TCS_150 == 8 | TCS_150 == 9
+gen constunderstress = TCS_160
+replace constunderstress = . if TCS_160 == 6| TCS_160 == 7| TCS_160 == 8 | TCS_160 == 9
+gen notimefun = TCS_180
+replace notimefun = . if TCS_180 == 6| TCS_180 == 7| TCS_180 == 8 | TCS_180 == 9
 gen NewfoundlandandLabroador = (PRV==10)
 gen PrinceEdwardIsland = (PRV==11)
 gen NovaScotia = (PRV==12)
@@ -168,5 +185,76 @@ gen BritishColumbia = (PRV==59)
 
 
 
-#include: PRV
-regress smentalhealth AGEGR10 SEX HSDSIZEC PHSDFLG AGEPRGRD MATR couplebefore homosexualcouple CHINHSDC youngestchildage agedifferencepartner feelrushed SLEEPDUR PERSDUR PDWKDUR LKWKDUR SCHLDUR HSWKDUR CHLDDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR EVENTDUR SPRTSDUR ACTLDUR SOCPRDUR SOCTCDUR TVDUR READDUR OTHLDUR TRANSDUR BREAKDUR MEALSDUR OTHERDUR new_sleep1s TIMECR shealth mentaldisabilitystatus unionmember sstress mawork nrpaidvacation nremployees unionmember distancework teleworking workless30childcare workless30wanted balancejobhome notimeotheract paidhelp carcommutting publictranspcommutting commuwalkorbike partnermaworking partnermahouse timelivingincurrentcity immigrant agemigration wolandedimmigrantstatus aboriginal othervisminority religimportance norenglishfrench multmotongue HHINCG1 NewfoundlandandLabroador PrinceEdwardIsland NovaScotia NewBrunswick Quebec Ontario Manitoba Saskatchewan Alberta BritishColumbia
+#include: PRV+          
+regress smentalhealth AGEGR10 SEX HSDSIZEC AGEPRGRD MATR homosexualcouple CHINHSDC youngestchildage feelrushed SLEEPDUR PERSDUR PDWKDUR LKWKDUR SCHLDUR HSWKDUR CHLDDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR EVENTDUR SPRTSDUR ACTLDUR SOCPRDUR SOCTCDUR TVDUR READDUR OTHLDUR TRANSDUR BREAKDUR MEALSDUR OTHERDUR new_sleep1s timecr shealth mentaldisabilitystatus unionmember sstress mawork nrpaidvacation distancework workless30childcare workless30wanted balancejobhome paidhelp carcommutting publictranspcommutting commuwalkorbike partnermaworking partnermahouse timelivingincurrentcity immigrant wolandedimmigrantstatus aboriginal othervisminority religimportance norenglishfrench multmotongue HHINCG1 NewfoundlandandLabroador PrinceEdwardIsland NovaScotia NewBrunswick Quebec Ontario Manitoba Saskatchewan Alberta BritishColumbia
+
+regress smentalhealth AGEGR10 SEX HSDSIZEC MATR feelrushed SLEEPDUR PERSDUR PDWKDUR LKWKDUR SCHLDUR HSWKDUR CHLDDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR EVENTDUR SPRTSDUR ACTLDUR SOCPRDUR SOCTCDUR TVDUR READDUR OTHLDUR TRANSDUR BREAKDUR MEALSDUR OTHERDUR new_sleep1s timecr shealth mentaldisabilitystatus sstress mawork nrpaidvacation distancework workless30childcare workless30wanted balancejobhome paidhelp carcommutting publictranspcommutting commuwalkorbike partnermaworking
+
+
+
+
+regress smentalhealth AGEGR10 SEX HSDSIZEC MATR feelrushed SLEEPDUR PERSDUR PDWKDUR LKWKDUR SCHLDUR HSWKDUR CHLDDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR EVENTDUR SPRTSDUR ACTLDUR SOCPRDUR SOCTCDUR TVDUR READDUR TRANSDUR BREAKDUR MEALSDUR new_sleep1s timecr shealth mentaldisabilitystatus sstress mawork nrpaidvacation distancework workless30childcare balancejobhome paidhelp publictranspcommutting partnermaworking
+
+
+
+
+regress smentalhealth AGEGR10 SEX HSDSIZEC feelrushed SLEEPDUR PERSDUR PDWKDUR LKWKDUR SCHLDUR HSWKDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR EVENTDUR SPRTSDUR ACTLDUR SOCPRDUR SOCTCDUR TVDUR READDUR TRANSDUR BREAKDUR MEALSDUR new_sleep1s timecr shealth mentaldisabilitystatus sstress mawork nrpaidvacation distancework workless30childcare balancejobhome paidhelp publictranspcommutting partnermaworking
+
+
+
+
+regress smentalhealth AGEGR10 SEX HSDSIZEC feelrushed SLEEPDUR PERSDUR PDWKDUR LKWKDUR SCHLDUR HSWKDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR EVENTDUR ACTLDUR SOCPRDUR SOCTCDUR TVDUR READDUR TRANSDUR BREAKDUR MEALSDUR new_sleep1s timecr shealth mentaldisabilitystatus sstress mawork nrpaidvacation distancework balancejobhome paidhelp publictranspcommutting partnermaworking
+
+
+
+
+regress smentalhealth AGEGR10 SEX HSDSIZEC feelrushed SLEEPDUR PERSDUR PDWKDUR LKWKDUR SCHLDUR HSWKDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR EVENTDUR ACTLDUR SOCPRDUR TVDUR READDUR TRANSDUR BREAKDUR MEALSDUR new_sleep1s timecr shealth mentaldisabilitystatus sstress mawork nrpaidvacation distancework workless30childcare balancejobhome paidhelp publictranspcommutting partnermaworking
+
+
+regress smentalhealth AGEGR10 SEX HSDSIZEC feelrushed SLEEPDUR PERSDUR PDWKDUR LKWKDUR SCHLDUR HSWKDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR EVENTDUR ACTLDUR TVDUR READDUR TRANSDUR BREAKDUR MEALSDUR new_sleep1s timecr shealth mentaldisabilitystatus sstress mawork nrpaidvacation distancework workless30childcare balancejobhome paidhelp publictranspcommutting partnermaworking
+
+
+
+
+regress smentalhealth AGEGR10 SEX HSDSIZEC feelrushed SLEEPDUR PERSDUR PDWKDUR LKWKDUR SCHLDUR HSWKDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR EVENTDUR ACTLDUR TVDUR READDUR TRANSDUR BREAKDUR MEALSDUR new_sleep1s timecr shealth mentaldisabilitystatus sstress mawork nrpaidvacation distancework workless30childcare balancejobhome paidhelp publictranspcommutting partnermaworking immigrant
+
+
+
+LAST MODEL!!!
+regress smentalhealth AGEGR10 SEX SLEEPDUR PERSDUR PDWKDUR LKWKDUR HSWKDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR ACTLDUR TVDUR new_sleep1s timecr shealth mentaldisabilitystatus sstress mawork nrpaidvacation distancework workless30childcare balancejobhome paidhelp publictranspcommutting partnermaworking immigrant aboriginal othervisminority HHINCG1
+
+
+regress smentalhealth swell_being AGEGR10 SEX SLEEPDUR PERSDUR PDWKDUR LKWKDUR HSWKDUR ADLTDUR     OHHLDUR SHOPDUR CIVICDUR ACTLDUR TVDUR new_sleep1s timecr shealth mentaldisabilitystatus sstress mawork nrpaidvacation distancework workless30childcare balancejobhome paidhelp publictranspcommutting partnermaworking immigrant othervisminority HHINCG1
+
+
+
+regress smentalhealth swell_being AGEGR10 SEX SLEEPDUR PERSDUR PDWKDUR LKWKDUR HSWKDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR ACTLDUR TVDUR new_sleep1s timecr shealth mentaldisabilitystatus sstress mawork nrpaidvacation distancework workless30childcare balancejobhome paidhelp publictranspcommutting partnermaworking immigrant othervisminority HHINCG1
+
+
+
+
+
+regress smentalhealth swell_being AGEGR10 SEX SLEEPDUR PERSDUR PDWKDUR LKWKDUR HSWKDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR ACTLDUR TVDUR new_sleep1s timecr shealth mentaldisabilitystatus sstress mawork nrpaidvacation distancework workless30childcare balancejobhome paidhelp publictranspcommutting partnermaworking immigrant othervisminority HHINCG1 NewfoundlandandLabroador NovaScotia NewBrunswick Quebec Ontario Manitoba Saskatchewan Alberta BritishColumbia
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ÚLTIMO MODELO
+regress smentalhealth swell_being AGEGR10 SEX SLEEPDUR PERSDUR PDWKDUR LKWKDUR HSWKDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR ACTLDUR TVDUR new_sleep1s timecr shealth mentaldisabilitystatus sstress mawork nrpaidvacation distancework workless30childcare balancejobhome paidhelp publictranspcommutting partnermaworking immigrant othervisminority HHINCG1 NewfoundlandandLabroador Quebec 
+
+
+
+or
+
+regress smentalhealth SEX AGEGR10 feelrushed HSDSIZEC extratime DUR01 DUR05 DUR06 DUR08 DUR09 DUR10 SCHLDUR DUR16 DUR17 DUR18 DUR19 DUR20 DUR22 DUR23 DUR24 DUR26 CHLDDUR DUR36 DUR37 DUR38 DUR41 DUR42 DUR44 DUR45 DUR46 DUR48 DUR49 DUR50 DUR51 DUR53 DUR55 DUR57 DUR60 DUR61 DUR62 DURS200 DURS201 DURS202 DURS207 DURL300 DURL301 DURL316 DURL313 new_sleep1s timecr shealth mentaldisabilitystatus unionmember sstress mawork workaholic planslowdown cutsleep nottimefamily constunderstress notimefun swell_being Quebec nrpaidvacation balancejobhome NewfoundlandandLabroador
