@@ -257,4 +257,7 @@ regress smentalhealth swell_being AGEGR10 SEX SLEEPDUR PERSDUR PDWKDUR LKWKDUR H
 
 or
 
-regress smentalhealth SEX AGEGR10 feelrushed HSDSIZEC extratime DUR01 DUR05 DUR06 DUR08 DUR09 DUR10 SCHLDUR DUR16 DUR17 DUR18 DUR19 DUR20 DUR22 DUR23 DUR24 DUR26 CHLDDUR DUR36 DUR37 DUR38 DUR41 DUR42 DUR44 DUR45 DUR46 DUR48 DUR49 DUR50 DUR51 DUR53 DUR55 DUR57 DUR60 DUR61 DUR62 DURS200 DURS201 DURS202 DURS207 DURL300 DURL301 DURL316 DURL313 new_sleep1s timecr shealth mentaldisabilitystatus unionmember sstress mawork workaholic planslowdown cutsleep nottimefamily constunderstress notimefun swell_being Quebec nrpaidvacation balancejobhome NewfoundlandandLabroador
+
+
+
+regress smentalhealth SEX AGEGR10 feelrushed extratime DUR01 DUR05 DUR06 DUR08 DUR09 DUR10 SCHLDUR DUR18 DUR19 DUR20 DUR22 DUR23 DUR24 CHLDDUR DUR36 DUR37 DUR38 DUR41 DUR42 DUR44 DUR48 DUR49 DUR50 DUR51 DUR53 DUR55 DUR61 DUR62 DURS200  DURS207 DURL300 DURL301 DURL316 DURL313 paidhelp new_sleep1s timecr shealth mentaldisabilitystatus unionmember sstress mawork workaholic planslowdown cutsleep nottimefamily  notimefun swell_being Quebec nrpaidvacation balancejobhome NewfoundlandandLabroador partnermaworking othervisminority HHINCG1 aboriginal NovaScotia NewBrunswick Ontario Saskatchewan Alberta
