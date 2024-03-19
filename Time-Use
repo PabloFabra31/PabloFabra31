@@ -76,10 +76,14 @@ gen ratio_SRH_115 = SRH_115 / weighted_avg
 format SRH_115 ratio_SRH_115 %9.2f
 list
 
+
+
+
 #interesting variables: LIVARR08 year and living with parents  WHW_160F Works less than 30 hours - Could only find part-time work WHW_230 Usual work schedule at main job WFS_10 work flexible schedule. A ytravés de CTW_140H y de teleworking podemos saber quién estudia en casa
 #questions: better matr and couplebefore or partner living in the household. Number of members or children at home. CHLDDUR or UH_01/ UH_03/ ADLTDUR or UH_05+UH_06. Should I inlcude disability status? If so, only mental or everyone. nr of hours worked per week WHW_120C or duration of work? WLB_10 or SRC_10. incluir carcommutting los pasajeros también? commuting walking or bike? and motorcycle should be included? There is one variable of how often traffic congestion (CTW_190)? personal or household income?
 #married+living common law
-#ma=main activity. s=subjective (or self-rated)
+#ma=main activity. s=subjective (or self-rated) wo=without 
+use "E:\PSE\timeuse.dta", clear
 gen MATR = (MARSTAT == 1| MARSTAT == 2)
 #widowed+separated+divorced
 gen couplebefore = (MARSTAT == 3 | MARSTAT == 4 | MARSTAT == 5)
@@ -136,8 +140,8 @@ gen paidhelp = (HRH_10A == 2)
 gen carcommutting = (CTW_140A == 1|CTW_140B == 1)
 gen publictranspcommutting = (CTW_140C == 1)
 gen commuwalkorbike = (CTW_140D == 1|CTW_140E == 1)
-gen spousemaworking = (MAP_110C == 1)
-gen spousemahouse = (MAP_110C == 04 |MAP_110C == 05)
+gen partnermaworking = (MAP_110C == 1)
+gen partnermahouse = (MAP_110C == 04 |MAP_110C == 05)
 gen timelivingincurrentcity = LRC_20
 replace timelivingincurrentcity = . if LRC_20 == 96| LRC_20 == 97| LRC_20 == 98 | LRC_20 == 99
 gen immigrant= (BRTHCAN==2)
@@ -150,6 +154,21 @@ gen religimportance = RLR_110
 replace religimportance = . if RLR_110 == 6| RLR_110 == 7| RLR_110 == 8 | RLR_110 == 9
 gen norenglishfrench = (LAN_01 ==4)
 gen multmotongue = (LANMTMUL==2)
+gen NewfoundlandandLabroador = (PRV==10)
+gen PrinceEdwardIsland = (PRV==11)
+gen NovaScotia = (PRV==12)
+gen NewBrunswick = (PRV==13)
+gen Quebec = (PRV==24)
+gen Ontario = (PRV==35)
+gen Manitoba = (PRV==46)
+gen Saskatchewan = (PRV==47)
+gen Alberta = (PRV==48)
+gen BritishColumbia = (PRV==59)
+
+
+
+
+
 
 #include: PRV
-regress smentalhealth AGEGR10 SEX HSDSIZEC PHSDFLG AGEPRGRD MATR couplebefore homosexualcouple CHINHSDC youngestchildage agedifferencepartner feelrushed SLEEPDUR PERSDUR PDWKDUR LKWKDUR SCHLDUR HSWKDUR CHLDDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR EVENTDUR SPRTSDUR ACTLDUR SOCPRDUR SOCTCDUR TVDUR READDUR OTHLDUR TRANSDUR BREAKDUR MEALSDUR OTHERDUR new_sleep1s TIMECR shealth mentaldisabilitystatus unionmember sstress mawork nrpaidvacation nremployees unionmember distancework teleworking workless30childcare workless30wanted balancejobhome notimeotheract paidhelp carcommutting publictranspcommutting commuwalkorbike HHINCG1
+regress smentalhealth AGEGR10 SEX HSDSIZEC PHSDFLG AGEPRGRD MATR couplebefore homosexualcouple CHINHSDC youngestchildage agedifferencepartner feelrushed SLEEPDUR PERSDUR PDWKDUR LKWKDUR SCHLDUR HSWKDUR CHLDDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR EVENTDUR SPRTSDUR ACTLDUR SOCPRDUR SOCTCDUR TVDUR READDUR OTHLDUR TRANSDUR BREAKDUR MEALSDUR OTHERDUR new_sleep1s TIMECR shealth mentaldisabilitystatus unionmember sstress mawork nrpaidvacation nremployees unionmember distancework teleworking workless30childcare workless30wanted balancejobhome notimeotheract paidhelp carcommutting publictranspcommutting commuwalkorbike partnermaworking partnermahouse timelivingincurrentcity immigrant agemigration wolandedimmigrantstatus aboriginal othervisminority religimportance norenglishfrench multmotongue HHINCG1 NewfoundlandandLabroador PrinceEdwardIsland NovaScotia NewBrunswick Quebec Ontario Manitoba Saskatchewan Alberta BritishColumbia
