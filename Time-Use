@@ -96,16 +96,16 @@ replace agedifferencepartner = . if AGEPRGRD == 96
 gen livingwithoneparent = (PARNUM == 2)
 gen feelrushed = GTU_110
 replace feelrushed = . if GTU_110 == 97 | GTU_110 == 98
-gen feelrushed = GTU_130
-replace feelrushed = . if GTU_130 == 97 | GTU_130 == 98 | GTU_130 == 99
+gen extratime = GTU_130
+replace extratime = . if GTU_130 == 97 | GTU_130 == 98 | GTU_130 == 99
 gen new_sleep1s = SLEEP1S
 replace new_sleep1s = cond(inlist(substr(new_sleep1s, 1, 2), "00", "01", "02", "03", "04"), new_sleep1s, cond(SLEEP1D > 899, string(real(new_sleep1s) + 1200, "%05.0f"), new_sleep1s))
 replace new_sleep1s = cond(inlist(substr(new_sleep1s, 1, 2), "00", "01", "02", "03", "04"), string(real(new_sleep1s) + 2400, "%04.0f"), new_sleep1s)
 #TCS_110 TCS_120 TCS_130 TCS_140 TCS_150 TCS_160 TCS_170 TCS_180 TCS_190 TCS_200
-gen timecrunch = TIMECR
-replace timecrunch = . if TIMECR == 99
-gen timecrunch = TIMECR
-replace timecrunch = . if TIMECR == 99
+destring TIMECR, replace
+gen timecr = TIMECR
+replace timecr = . if TIMECR == 99
+
 gen swell_being = SLM_01
 replace swell_being = . if SLM_01 == 97| SLM_01 == 98 | SLM_01 == 99
 gen shealth = SRH_110
@@ -128,8 +128,6 @@ replace distancework = . if WLY_170 == 995| WLY_170 == 996 | WLY_170 == 997| WLY
 gen teleworking = (WLY_170 == 995)
 gen workless30childcare = WHW_160B
 replace workless30childcare = . if WHW_160B == 6| WHW_160B == 7| WHW_160B == 8 | WHW_160B == 9
-gen workless30childcare = WHW_160B
-replace workless30childcare = . if WHW_160B == 6| WHW_160B == 7| WHW_160B == 8 | WHW_160B == 9
 gen workless30wanted = WHW_160G
 replace workless30wanted = . if WHW_160G == 6| WHW_160G == 7| WHW_160G == 8 | WHW_160G == 9
 gen balancejobhome = SRC_10
@@ -147,7 +145,7 @@ replace timelivingincurrentcity = . if LRC_20 == 96| LRC_20 == 97| LRC_20 == 98 
 gen immigrant= (BRTHCAN==2)
 gen agemigration = YRARRI
 replace agemigration = . if AGEARRC == 96| AGEARRC == 97| AGEARRC == 98 | AGEARRC == 99
-gen without wolandedimmigrantstatus = (BPR_16==2)
+gen wolandedimmigrantstatus = (BPR_16==2)
 gen aboriginal = (AMB_01==1)
 gen othervisminority = (VISMIN == 1)
 gen religimportance = RLR_110
