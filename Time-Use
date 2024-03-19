@@ -77,7 +77,7 @@ format SRH_115 ratio_SRH_115 %9.2f
 list
 
 #interesting variables: LIVARR08 year and living with parents  WHW_160F Works less than 30 hours - Could only find part-time work WHW_230 Usual work schedule at main job WFS_10 work flexible schedule. A ytravés de CTW_140H y de teleworking podemos saber quién estudia en casa
-#questions: better matr and couplebefore or partner living in the household. Number of members or children at home. CHLDDUR or UH_01/ UH_03/ ADLTDUR or UH_05+UH_06. Should I inlcude disability status? If so, only mental or everyone. nr of hours worked per week WHW_120C or duration of work? WLB_10 or SRC_10. incluir carcommutting los pasajeros también?
+#questions: better matr and couplebefore or partner living in the household. Number of members or children at home. CHLDDUR or UH_01/ UH_03/ ADLTDUR or UH_05+UH_06. Should I inlcude disability status? If so, only mental or everyone. nr of hours worked per week WHW_120C or duration of work? WLB_10 or SRC_10. incluir carcommutting los pasajeros también? commuting walking or bike? and motorcycle should be included? There is one variable of how often traffic congestion (CTW_190)? personal or household income?
 #married+living common law
 #ma=main activity. s=subjective (or self-rated)
 gen MATR = (MARSTAT == 1| MARSTAT == 2)
@@ -133,7 +133,23 @@ replace balancejobhome = . if SRC_10 == 6| SRC_10 == 7| SRC_10 == 8 | SRC_10 == 
 gen notimeotheract = SRC_20C
 replace notimeotheract = . if SRC_20C == 6| SRC_20C == 7| SRC_20C == 8 | SRC_20C == 9
 gen paidhelp = (HRH_10A == 2)
-gen carcommutting = (CTW_140A == 1)
+gen carcommutting = (CTW_140A == 1|CTW_140B == 1)
+gen publictranspcommutting = (CTW_140C == 1)
+gen commuwalkorbike = (CTW_140D == 1|CTW_140E == 1)
+gen spousemaworking = (MAP_110C == 1)
+gen spousemahouse = (MAP_110C == 04 |MAP_110C == 05)
+gen timelivingincurrentcity = LRC_20
+replace timelivingincurrentcity = . if LRC_20 == 96| LRC_20 == 97| LRC_20 == 98 | LRC_20 == 99
+gen immigrant= (BRTHCAN==2)
+gen agemigration = YRARRI
+replace agemigration = . if AGEARRC == 96| AGEARRC == 97| AGEARRC == 98 | AGEARRC == 99
+gen without wolandedimmigrantstatus = (BPR_16==2)
+gen aboriginal = (AMB_01==1)
+gen othervisminority = (VISMIN == 1)
+gen religimportance = RLR_110
+replace religimportance = . if RLR_110 == 6| RLR_110 == 7| RLR_110 == 8 | RLR_110 == 9
+gen norenglishfrench = (LAN_01 ==4)
+gen multmotongue = (LANMTMUL==2)
+
 #include: PRV
-regress smentalhealth AGEGR10 SEX HSDSIZEC PHSDFLG AGEPRGRD MATR couplebefore homosexualcouple CHINHSDC youngestchildage agedifferencepartner feelrushed SLEEPDUR PERSDUR PDWKDUR LKWKDUR SCHLDUR HSWKDUR CHLDDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR EVENTDUR SPRTSDUR ACTLDUR SOCPRDUR SOCTCDUR TVDUR READDUR OTHLDUR TRANSDUR BREAKDUR MEALSDUR OTHERDUR new_sleep1s TIMECR shealth mentaldisabilitystatus unionmember sstress
-mawork nrpaidvacation nremployees unionmember distancework teleworking
+regress smentalhealth AGEGR10 SEX HSDSIZEC PHSDFLG AGEPRGRD MATR couplebefore homosexualcouple CHINHSDC youngestchildage agedifferencepartner feelrushed SLEEPDUR PERSDUR PDWKDUR LKWKDUR SCHLDUR HSWKDUR CHLDDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR EVENTDUR SPRTSDUR ACTLDUR SOCPRDUR SOCTCDUR TVDUR READDUR OTHLDUR TRANSDUR BREAKDUR MEALSDUR OTHERDUR new_sleep1s TIMECR shealth mentaldisabilitystatus unionmember sstress mawork nrpaidvacation nremployees unionmember distancework teleworking workless30childcare workless30wanted balancejobhome notimeotheract paidhelp carcommutting publictranspcommutting commuwalkorbike HHINCG1
