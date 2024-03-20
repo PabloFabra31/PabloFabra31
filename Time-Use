@@ -88,6 +88,7 @@ gen MATR = (MARSTAT == 1| MARSTAT == 2)
 #widowed+separated+divorced
 gen couplebefore = (MARSTAT == 3 | MARSTAT == 4 | MARSTAT == 5)
 gen homosexualcouple = (PRTYPEC ==3)
+gen single = (MARSTAT ==6)
 gen youngestchildage = AGECXRYG
 replace youngestchildage = . if AGECXRYG == 96
 gen agedifferencepartner = AGEPRGRD
@@ -103,6 +104,7 @@ replace new_sleep1s = cond(inlist(substr(new_sleep1s, 1, 2), "00", "01", "02", "
 replace new_sleep1s = cond(inlist(substr(new_sleep1s, 1, 2), "00", "01", "02", "03", "04"), string(real(new_sleep1s) + 2400, "%04.0f"), new_sleep1s)
 destring new_sleep1s, replace
 replace new_sleep1s = . if new_sleep1s > 9000
+gen leisure=DUR53+DUR55+DUR56+DUR57+DUR60+DUR61
 
 #TCS_110 TCS_120 TCS_130 TCS_140 TCS_150 TCS_160 TCS_170 TCS_180 TCS_190 TCS_200
 destring TIMECR, replace
@@ -253,6 +255,13 @@ regress smentalhealth swell_being AGEGR10 SEX SLEEPDUR PERSDUR PDWKDUR LKWKDUR H
 ÚLTIMO MODELO
 regress smentalhealth swell_being AGEGR10 SEX SLEEPDUR PERSDUR PDWKDUR LKWKDUR HSWKDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR ACTLDUR TVDUR new_sleep1s timecr shealth mentaldisabilitystatus sstress mawork nrpaidvacation distancework workless30childcare balancejobhome paidhelp publictranspcommutting partnermaworking immigrant othervisminority HHINCG1 NewfoundlandandLabroador Quebec 
 
+regress smentalhealth swell_being AGEGR10 SEX SLEEPDUR PERSDUR PDWKDUR LKWKDUR HSWKDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR ACTLDUR TVDUR new_sleep1s timecr shealth mentaldisabilitystatus mawork nrpaidvacation distancework workless30childcare balancejobhome publictranspcommutting partnermaworking immigrant othervisminority NewfoundlandandLabroador Quebec
+
+
+regress smentalhealth swell_being AGEGR10 SEX SLEEPDUR PERSDUR PDWKDUR LKWKDUR HSWKDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR ACTLDUR TVDUR new_sleep1s timecr shealth mentaldisabilitystatus mawork nrpaidvacation distancework workless30childcare balancejobhome publictranspcommutting partnermaworking immigrant aboriginal othervisminority NewfoundlandandLabroador Quebec
+regress smentalhealth swell_being AGEGR10 SEX SLEEPDUR PERSDUR LKWKDUR HSWKDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR ACTLDUR TVDUR new_sleep1s timecr shealth mentaldisabilitystatus mawork nrpaidvacation distancework workless30childcare balancejobhome publictranspcommutting partnermaworking immigrant aboriginal othervisminority NewfoundlandandLabroador Quebec
+
+regress smentalhealth swell_being AGEGR10 SEX LKWKDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR ACTLDUR new_sleep1s timecr shealth mentaldisabilitystatus mawork nrpaidvacation distancework workless30childcare balancejobhome publictranspcommutting partnermaworking immigrant aboriginal othervisminority NewfoundlandandLabroador Quebec
 
 
 or
@@ -269,3 +278,59 @@ regress smentalhealth SEX AGEGR10 feelrushed extratime DUR01 DUR05 DUR06 DUR08 D
 
 
 regress smentalhealth SEX AGEGR10 feelrushed extratime DUR01 DUR05 DUR06 DUR08 DUR09 DUR10 SCHLDUR DUR18 DUR19 DUR20 DUR22 DUR23 DUR24 CHLDDUR DUR36 DUR37 DUR41 DUR42 DUR44 DUR48 DUR49 DUR50 DUR51 DUR53 DUR55 DUR61 DURS200  DURS207 DURL316 DURL313 new_sleep1s timecr shealth mentaldisabilitystatus unionmember sstress mawork workaholic planslowdown cutsleep nottimefamily  notimefun swell_being Quebec nrpaidvacation balancejobhome NewfoundlandandLabroador partnermaworking othervisminority HHINCG1 aboriginal NovaScotia NewBrunswick Ontario Saskatchewan Alberta
+
+
+
+
+regress smentalhealth MATR couplebefore SEX AGEGR10 extratime DUR01 DUR05 DUR06 DUR08 DUR09 DUR10 SCHLDUR DUR19 DUR20 DUR22 DUR23 DUR24 CHLDDUR DUR36 DUR37 DUR41 DUR42 DUR44 DUR48 DUR49 DUR50 DUR51 DUR53 DUR55 DUR61 DURS200  DURS207 DURL316 DURL313 new_sleep1s timecr shealth mentaldisabilitystatus unionmember sstress workaholic planslowdown cutsleep nottimefamily  notimefun swell_being Quebec nrpaidvacation balancejobhome NewfoundlandandLabroador partnermaworking othervisminority HHINCG1 aboriginal NovaScotia NewBrunswick Ontario Alberta
+
+
+
+
+
+regress smentalhealth swell_being AGEGR10 SEX LKWKDUR ADLTDUR OHHLDUR SHOPDUR CIVICDUR ACTLDUR timecr shealth mentaldisabilitystatus mawork nrpaidvacation distancework workless30childcare balancejobhome publictranspcommutting partnermaworking immigrant aboriginal othervisminority NewfoundlandandLabroador Quebec
+
+
+
+regress smentalhealth swell_being AGEGR10 SEX LKWKDUR ADLTDUR OHHLDUR SHOPDUR ACTLDUR timecr shealth mentaldisabilitystatus mawork nrpaidvacation distancework workless30childcare balancejobhome publictranspcommutting partnermaworking  racialised NewfoundlandandLabroador Quebec
+
+
+
+
+
+
+
+
+
+
+
+LAST ONE:
+regress smentalhealth swell_being AGEGR10 SEX LKWKDUR ADLTDUR OHHLDUR SHOPDUR ACTLDUR timecr shealth mentaldisabilitystatus nrpaidvacation distancework workless30childcare balancejobhome publictranspcommutting partnermaworking  racialised NewfoundlandandLabroador Quebec
+
+
+ssc install estout
+regress smentalhealth swell_being AGEGR10 SEX LKWKDUR ADLTDUR OHHLDUR SHOPDUR ACTLDUR timecr shealth mentaldisabilitystatus nrpaidvacation distancework workless30childcare balancejobhome publictranspcommutting partnermaworking  racialised NewfoundlandandLabroador Quebec
+estat vif
+
+pwcorr smentalhealth swell_being AGEGR10 SEX LKWKDUR ADLTDUR OHHLDUR SHOPDUR ACTLDUR timecr shealth mentaldisabilitystatus nrpaidvacation distancework workless30childcare balancejobhome publictranspcommutting partnermaworking  racialised NewfoundlandandLabroador Quebec
+
+
+
+
+regress smentalhealth INCG1 cutsleep workaholic DUR06 DUR08 DUR20 DUR24 DUR48 nottimefamily notimefun DURS200 DURS207  DURL316 DURL313 planslowdown couplebefore swell_being AGEGR10 SEX ACTLDUR timecr shealth mentaldisabilitystatus balancejobhome  aboriginal othervisminority NewfoundlandandLabroador Quebec Ontario sstress
+
+
+GOOOOOOOOOOOD ONE:
+ologit smentalhealth INCG1 cutsleep workaholic DUR08 DUR24 DUR56 DURS200 planslowdown couplebefore swell_being AGEGR10 SEX timecr shealth mentaldisabilitystatus balancejobhome  aboriginal othervisminority NewfoundlandandLabroador Quebec Ontario
+
+ologit smentalhealth new_sleep1s INCG1 cutsleep workaholic DUR08 DUR56 DURS200 planslowdown couplebefore swell_being AGEGR10 SEX timecr shealth mentaldisabilitystatus balancejobhome  aboriginal othervisminority NewfoundlandandLabroador Quebec Ontario
+#CUIDADO new_sleep1s, por ejemplo, podría ser causalidad inversa.
+
+
+local results ""
+forval i = 1/63 {
+    local dur_var DUR`i'
+    if `i' < 10 local dur_var DUR0`i'
+
+    pwcorr smentalhealth `dur_var'
+}
