@@ -328,9 +328,9 @@ ologit smentalhealth new_sleep1s INCG1 cutsleep workaholic DUR08 DUR56 DURS200 p
 
 
 
-LAST IN WELL-BEING: (needs to be improved)
+LAST IN WELL-BEING: (needs to be improved) see comments of the meeting, try to include PRV
 regress swell_being single smentalhealth new_sleep1s INCG1 cutsleep workaholic DUR08 DURS200 planslowdown couplebefore AGEGR10 SEX timecr shealth mentaldisabilitystatus balancejobhome othervisminority Quebec
-
+When DURS201 included, dur08 deja de ser sign. Pensar.
 
 
 
