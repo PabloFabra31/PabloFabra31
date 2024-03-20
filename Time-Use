@@ -327,6 +327,13 @@ ologit smentalhealth new_sleep1s INCG1 cutsleep workaholic DUR08 DUR56 DURS200 p
 #CUIDADO new_sleep1s, por ejemplo, podría ser causalidad inversa. Same with all the health related ones
 
 
+
+LAST IN WELL-BEING: (needs to be improved)
+regress swell_being single smentalhealth new_sleep1s INCG1 cutsleep workaholic DUR08 DURS200 planslowdown couplebefore AGEGR10 SEX timecr shealth mentaldisabilitystatus balancejobhome othervisminority Quebec
+
+
+
+
 local results ""
 forval i = 1/63 {
     local dur_var DUR`i'
