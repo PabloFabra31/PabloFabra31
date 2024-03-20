@@ -179,7 +179,7 @@ gen Manitoba = (PRV==46)
 gen Saskatchewan = (PRV==47)
 gen Alberta = (PRV==48)
 gen BritishColumbia = (PRV==59)
-
+gen recresports = DUR47+DUR48+DUR50
 
 
 
@@ -261,3 +261,11 @@ or
 
 
 regress smentalhealth SEX AGEGR10 feelrushed extratime DUR01 DUR05 DUR06 DUR08 DUR09 DUR10 SCHLDUR DUR18 DUR19 DUR20 DUR22 DUR23 DUR24 CHLDDUR DUR36 DUR37 DUR38 DUR41 DUR42 DUR44 DUR48 DUR49 DUR50 DUR51 DUR53 DUR55 DUR61 DUR62 DURS200  DURS207 DURL300 DURL301 DURL316 DURL313 paidhelp new_sleep1s timecr shealth mentaldisabilitystatus unionmember sstress mawork workaholic planslowdown cutsleep nottimefamily  notimefun swell_being Quebec nrpaidvacation balancejobhome NewfoundlandandLabroador partnermaworking othervisminority HHINCG1 aboriginal NovaScotia NewBrunswick Ontario Saskatchewan Alberta
+
+
+
+
+
+
+
+regress smentalhealth SEX AGEGR10 feelrushed extratime DUR01 DUR05 DUR06 DUR08 DUR09 DUR10 SCHLDUR DUR18 DUR19 DUR20 DUR22 DUR23 DUR24 CHLDDUR DUR36 DUR37 DUR41 DUR42 DUR44 DUR48 DUR49 DUR50 DUR51 DUR53 DUR55 DUR61 DURS200  DURS207 DURL316 DURL313 new_sleep1s timecr shealth mentaldisabilitystatus unionmember sstress mawork workaholic planslowdown cutsleep nottimefamily  notimefun swell_being Quebec nrpaidvacation balancejobhome NewfoundlandandLabroador partnermaworking othervisminority HHINCG1 aboriginal NovaScotia NewBrunswick Ontario Saskatchewan Alberta
