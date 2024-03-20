@@ -1,4 +1,4 @@
-#Average childcare duration for people that work more than 360 mins, by sex 
+th#Average childcare duration for people that work more than 360 mins, by sex 
 * Code for female
 use "E:\PSE\timeuse.dta", clear
 keep if SEX == 2 & DUR08 >= 360 & CXRFLAG == 1
@@ -324,7 +324,7 @@ GOOOOOOOOOOOD ONE:
 ologit smentalhealth INCG1 cutsleep workaholic DUR08 DUR24 DUR56 DURS200 planslowdown couplebefore swell_being AGEGR10 SEX timecr shealth mentaldisabilitystatus balancejobhome  aboriginal othervisminority NewfoundlandandLabroador Quebec Ontario
 
 ologit smentalhealth new_sleep1s INCG1 cutsleep workaholic DUR08 DUR56 DURS200 planslowdown couplebefore swell_being AGEGR10 SEX timecr shealth mentaldisabilitystatus balancejobhome  aboriginal othervisminority NewfoundlandandLabroador Quebec Ontario
-#CUIDADO new_sleep1s, por ejemplo, podría ser causalidad inversa.
+#CUIDADO new_sleep1s, por ejemplo, podría ser causalidad inversa. Same with all the health related ones
 
 
 local results ""
