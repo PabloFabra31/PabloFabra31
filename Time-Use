@@ -341,7 +341,7 @@ ologit swell_being publictranspcommutting single smentalhealth new_sleep1s INCG1
 ologit smentalhealth new_sleep1s INCG1 cutsleep workaholic DUR08 DUR56 DURS200 planslowdown couplebefore swell_being AGEGR10 SEX timecr shealth mentaldisabilitystatus balancejobhome  aboriginal othervisminority NewfoundlandandLabroador Quebec Ontario
 
 
-
+06, 08, 09, 24, 25, 58
 local results ""
 forval i = 1/63 {
     local dur_var DUR`i'
