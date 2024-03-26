@@ -77,10 +77,11 @@ format SRH_115 ratio_SRH_115 %9.2f
 list
 
 
-
+macroanalisis and pol
+klodiana istrefi banc de ffr
 
 #interesting variables: LIVARR08 year and living with parents  WHW_160F Works less than 30 hours - Could only find part-time work WHW_230 Usual work schedule at main job WFS_10 work flexible schedule. A ytravés de CTW_140H y de teleworking podemos saber quién estudia en casa
-#questions: better matr and couplebefore or partner living in the household. Number of members or children at home. CHLDDUR or UH_01/ UH_03/ ADLTDUR or UH_05+UH_06. Should I inlcude disability status? If so, only mental or everyone. nr of hours worked per week WHW_120C or duration of work? WLB_10 or SRC_10. incluir carcommutting los pasajeros también? commuting walking or bike? and motorcycle should be included? There is one variable of how often traffic congestion (CTW_190)? personal or household income?
+#questions: better matr and couplebefore or partner living in the household. personal or household income? Number of members or children at home. Last week how many hours or time use diary CHLDDUR or UH_01/ UH_03/ ADLTDUR or UH_05+UH_06. Should I inlcude disability status? If so, only mental or everyone. nr of hours worked per week WHW_120C or duration of work? WLB_10 or SRC_10. incluir carcommutting los pasajeros también? commuting walking or bike? and motorcycle should be included? There is one variable of how often traffic congestion (CTW_190)? personal or household income?
 #married+living common law
 #ma=main activity. s=subjective (or self-rated) wo=without 
 use "E:\PSE\timeuse.dta", clear
@@ -182,6 +183,7 @@ gen Saskatchewan = (PRV==47)
 gen Alberta = (PRV==48)
 gen BritishColumbia = (PRV==59) 
 gen recresports = DUR47+DUR48+DUR50
+gen white = (racialised == 0)
 
 regress swell_being paidhelp publictranspcommutting recresports single smentalhealth new_sleep1s INCG1 cutsleep workaholic notimefun DUR08 DUR09 DUR46 DURS200 DURS201 DURS202 planslowdown couplebefore AGEGR10 SEX timecr shealth mentaldisabilitystatus balancejobhome othervisminority Quebec NewfoundlandandLabroador PrinceEdwardIsland NovaScotia NewBrunswick Ontario Manitoba Saskatchewan BritishColumbia Alberta
 
@@ -335,12 +337,22 @@ When DURS201 included, dur08 deja de ser sign. Pensar.
 
 ologit swell_being publictranspcommutting single smentalhealth new_sleep1s INCG1 cutsleep workaholic notimefun DUR09 DURS200 timesfamily planslowdown couplebefore AGEGR10 SEX timecr shealth mentaldisabilitystatus balancejobhome  othervisminority Quebec NewBrunswick
 
+Descripción variables, agruparlas por tipo, análisis de variables, comparación de INC e HHINC (dif o ratio) log de variables. Causality, double causality etc. ver si hay especifiicacioens más simples que tengan sentido. Logs para comparar, separar hombres y mujeres, por edad y sexo (+45)
 
 LAST ONES:
-ologit swell_being publictranspcommutting single smentalhealth new_sleep1s INCG1 DUR09 DUR15 DURS200 timesfamily planslowdown couplebefore AGEGR10 SEX timecr shealth mentaldisabilitystatus balancejobhome  othervisminority Quebec NewBrunswick HSDSIZEC
+ologit swell_being publictranspcommutting single smentalhealth new_sleep1s INCG1 DUR06 DUR08 DUR09 DUR24 DUR58 DURS200 timesfamily planslowdown couplebefore AGEGR10 SEX timecr shealth mentaldisabilitystatus balancejobhome  othervisminority Quebec NewBrunswick HSDSIZEC
+ologit smentalhealth new_sleep1s INCG1 cutsleep workaholic DUR08 DUR56 DURS200 planslowdown couplebefore swell_being AGEGR10 SEX timecr shealth mentaldisabilitystatus balancejobhome  aboriginal othervisminority NewfoundlandandLabroador Quebec Ontario
+Independencia, heteroscedasticity, multicollinearity, double causality, covariance
 ologit smentalhealth new_sleep1s INCG1 cutsleep workaholic DUR08 DUR56 DURS200 planslowdown couplebefore swell_being AGEGR10 SEX timecr shealth mentaldisabilitystatus balancejobhome  aboriginal othervisminority NewfoundlandandLabroador Quebec Ontario
 
 
+Good:
+ologit swell_being i.single i.white i.INCG1 i.AGEGR10 i.SEX i.HSDSIZEC i.smentalhealth i.shealth i.mentaldisabilitystatus i.timecr new_sleep1s DUR08 DURS200 i.balancejobhome i.NewBrunswick i.Quebec
+
+
+
+Cross-effects tiempo trabajando cruzado con la familia
+mm stats
 06, 08, 09, 24, 25, 58
 local results ""
 forval i = 1/63 {
