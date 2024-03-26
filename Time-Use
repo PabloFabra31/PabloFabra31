@@ -350,7 +350,7 @@ Good:
 ologit swell_being i.single i.white i.INCG1 i.AGEGR10 i.SEX i.HSDSIZEC i.smentalhealth i.shealth i.mentaldisabilitystatus i.timecr new_sleep1s DUR08 DURS200 i.balancejobhome i.NewBrunswick i.Quebec
 omodel swell_being single white INCG1 AGEGR10 SEX HSDSIZEC smentalhealth shealth mentaldisabilitystatus timecr new_sleep1s DUR08 DURS200 balancejobhome NewBrunswick Quebec
 
-gologit2 swell_being single white INCG1 AGEGR10 SEX HSDSIZEC smentalhealth shealth mentaldisabilitystatus timecr new_sleep1s DUR08 DURS200 balancejobhome NewBrunswick Quebec, autofit(0.05) lrforce
+gologit2 swell_being single white INCG1 AGEGR10 SEX HSDSIZEC smentalhealth shealth mentaldisabilitystatus timecr new_sleep1s DUR08 DURS200 balancejobhome NewBrunswick Quebec, autofit(.05) lrforce
 
 
 Cross-effects tiempo trabajando cruzado con la familia
